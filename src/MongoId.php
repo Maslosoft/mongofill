@@ -53,7 +53,7 @@ class MongoId implements \Serializable
         if (null === $id) {
             $id = $this->generateId();
         } elseif (self::isValid($id)) {
-            if (get_class($id) == self::class) {
+            if (is_object($id) && get_class($id) == self::class) {
                 $id = $id->__toString();
             }
             $this->disassembleId($id);
@@ -183,7 +183,7 @@ class MongoId implements \Serializable
      */
     public static function isValid($value)
     {
-        if (get_class($value) == self::class) {
+        if (is_object($value) && get_class($value) == self::class) {
             return true;
         } else if (!is_string($value)) {
             return false;
